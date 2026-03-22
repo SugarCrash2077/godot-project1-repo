@@ -4,6 +4,15 @@ var input
 @export var speed = 100.0
 @export var gravity = 10
 
+
+# Variable for Jumping 
+var jump_count = 0
+@export var max_jump = 2
+@export var jump_force = 700
+
+
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -27,10 +36,30 @@ func movement(delta):
 			velocity.x = clamp(-speed, 100.0, -speed)
 			$Sprite2D.scale.x = -1
 			$Anim.play("Walk")
+			
 	if input  == 0:
 		velocity.x = 0;
 		$Anim.play("idle")
 		
+# Code Relating to Jumping 
+	if !is_on_floor():
+		if velocity.y < 0:
+			$Anim.play("idle")
+		if velocity.y > 0:
+			$Anim.play("Fall")
+	
+	if Input.is_action_pressed("ui_accept") && is_on_floor() && jump_count < max_jump:
+		jump_count += 1
+		velocity.y -= jump_force
+		velocity.x = input
+	#EP 3 11:01 minutes
+	if !is_on_floor() && Input.is_action_just_pressed("ui_accept")
+	
+	if !is_on_floor() && Input.is_action_just_released("ui_accept") && jump_count < max_jump:
+		velocity.y = gravity
+		velocity.x = input
+	
+	
 	gravity_force()
 	move_and_slide()
 	

@@ -10,6 +10,10 @@ size = Vector2(48, 16)
 
 [node name="Player" parent="." instance=ExtResource("1_n0qsc")]
 position = Vector2(-63, -33)
+speed = null
+gravity = null
+max_jump = null
+jump_force = null
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(73, -76)
